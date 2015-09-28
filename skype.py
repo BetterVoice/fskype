@@ -56,11 +56,13 @@ class SkypOpenModule(object):
       # Remove the symbolic link to the Skype executable.
       symlinks_dir = 'skype-clients-symlinks-dir'
       link_path = os.path.join(self.paths['mod'], symlinks_dir, key)
-      os.remove(link_path)
+      if os.path.exists(link_path):
+        os.remove(link_path)
       # Remove the Skype configuration folder.
       config_dir = 'skype-clients-configuration-dir'
       config_path = os.path.join(self.paths['mod'], config_dir, key)
-      shutil.rmtree(config_path)
+      if os.path.exists(config_path):
+        shutil.rmtree(config_path)
 
   def __get_interface_names__(self, config):
     return [c.attrib.get('name') for c in config.iter('interface')]
